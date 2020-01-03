@@ -17,7 +17,7 @@ namespace WpfSuduko.MVC.Models
             AllSquares = new Square[BoardLength, BoardLength];
             InitializeSquares();
             _rand = new Random();
-            GenerateBoard(0);
+            GenerateBoard();
         }
         private void InitializeSquares()
         {
@@ -31,41 +31,39 @@ namespace WpfSuduko.MVC.Models
         }
         public void ResetBoard() 
         {
-            GenerateBoard(0);
+            GenerateBoard();
         }
 
         //@Unhandled ClassCastException;
-        private void GenerateBoard(int row)
+        private void GenerateBoard()
         {
             ArrayList fillList;
             int randLocationInList;
-            //for (int row = 0; row < BoardLength; ++row)
-            //{
-            fillList = GenerateFillList();
-            for (int column = 0; column < BoardLength; ++column)
+            for (int row = 0; row < BoardLength; ++row)
             {
-                randLocationInList = _rand.Next(0, fillList.Count);
-                AllSquares[row, column].StoredValue = (int)fillList[randLocationInList];
-                fillList.RemoveAt(randLocationInList);
-            }
+                fillList = GenerateFillList();
+                for (int column = 0; column < BoardLength; ++column)
+                {
+                    randLocationInList = _rand.Next(0, fillList.Count);
+                    AllSquares[row, column].StoredValue = (int)fillList[randLocationInList];
+                    fillList.RemoveAt(randLocationInList);
+                }
 
-            //Run validity check on newly created row.
-            if (row == 0)
-            {
-                GenerateBoard(row + 1);
-            }
-            else if (row < 8)
-            {
-                if (RowIsValid(row))
+                if (row < 8 && row > 0)
                 {
-                    GenerateBoard(row + 1);
+                    if (!RowIsValid(row))
+                    {
+                        row--;
+                    }
                 }
-                else
+                else if (row == 8)
                 {
-                    GenerateBoard(row);
+                    if (!RowIsValid(row))
+                    {
+                        row--;
+                    }
                 }
             }
-        //}
         }
 
         private ArrayList GenerateFillList()
@@ -87,9 +85,10 @@ namespace WpfSuduko.MVC.Models
                     if (!isValid) break;
                 }
                 if (!isValid) break;
-                //isValid = CheckNonet(row, column, currentValue);
+                isValid = CheckNonet(row, column, currentValue);
                 if (!isValid) break;
             }
+
             return isValid;
         }
 
@@ -102,7 +101,6 @@ namespace WpfSuduko.MVC.Models
             {
                 isValid = CheckColumns(row + 1, column, currentValue);
                 if(isValid) isValid = CheckColumns(row + 2, column, currentValue);
-
             }
             if (rowModHelper == 1)
             {
