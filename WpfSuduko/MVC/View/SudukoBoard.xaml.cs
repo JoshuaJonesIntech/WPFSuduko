@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfSuduko.MVC.Models;
 
 namespace WPFSudukoApp
 {
@@ -21,23 +22,27 @@ namespace WPFSudukoApp
     /// </summary>
     public partial class SudukoBoardController : Window
     {
+        private Board board;
         public SudukoBoardController()
         {
             InitializeComponent();
-            //Subscribing to the MouseUp event within the code file.
+            board = new Board();
             generateGridButtons();
         }
 
-        private void generateGridButtons() {
-            for (int i = 0; i < 9; i++) {
-                for (int g = 0; g < 9; g++) {
+        private void generateGridButtons() 
+        {
+            for (int row = 0; row < 9; row++) 
+            {
+                for (int column = 0; column < 9; column++) 
+                {
                     Button myButton = new Button();
-                    myButton.Name = "GridButton" + i + g;
-                    myButton.Content = "( " + i + ", " + g + " )";
+                    myButton.Name = "GridButton" + row + column;
+                    myButton.Content = board.AllSquares[row, column].StoredValue;
                     myButton.FontSize = 15;
                     myButton.Click += gridButtonClicked;
-                    Grid.SetRow(myButton, i);
-                    Grid.SetColumn(myButton, g);
+                    Grid.SetRow(myButton, row);
+                    Grid.SetColumn(myButton, column);
                     pnlMainGrid.Children.Add(myButton);
                 }
             }
