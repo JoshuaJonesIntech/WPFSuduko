@@ -27,14 +27,3 @@ If the current board has more than one solution, undo the last removal (step 3),
 
 Stop when you have tested all 81 positions.Start with a complete, valid board (filled with 81 numbers).
 
-Make a list of all 81 cell positions and shuffle it randomly.
-
-As long as the list is not empty, take the next position from the list and remove the number from the related cell.
-
-Test uniqueness using a fast backtracking solver. My solver is - in theory - able to count all solutions, but for testing uniqueness, it will stop immediately when it finds more than one solution.
-
-If the current board has still just one solution, goto step 3) and repeat.
-
-If the current board has more than one solution, undo the last removal (step 3), and continue step 3 with the next position from the list
-
-Stop when you have tested all 81 positions.

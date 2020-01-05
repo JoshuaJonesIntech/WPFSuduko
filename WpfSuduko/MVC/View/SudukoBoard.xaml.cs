@@ -38,7 +38,7 @@ namespace WPFSudukoApp
                 {
                     Button myButton = new Button();
                     myButton.Name = "GridButton" + row + column;
-                    myButton.Content = board.AllSquares[row, column].StoredValue;
+                    myButton.Content = board.AllSquares[row, column].DisplayedValue;
                     myButton.FontSize = 15;
                     myButton.Click += gridButtonClicked;
                     Grid.SetRow(myButton, row);

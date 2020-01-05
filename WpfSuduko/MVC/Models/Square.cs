@@ -9,6 +9,9 @@ namespace WpfSuduko.MVC.Models
         public const int DefaultValue = -1;
         public int StoredValue { get; set; }
         public int DisplayedValue { get; set; }
+        public int XGridPosition { get; set; }
+        public int YGridPosition { get; set; }
+
         public Square() 
         {
             StoredValue = DefaultValue;
