@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using WpfSuduko.MVC.View;
 
 namespace WPFSudukoApp
 {
@@ -19,12 +20,19 @@ namespace WPFSudukoApp
 			//Show splash screen
 			MessageBox.Show("Application is starting.......");
 
-			// Create the startup window
-			SudukoBoardController wnd = new SudukoBoardController();
-			// Do stuff here, e.g. to the window
-			wnd.Title = "Suduko";
-			// Show the window
-			wnd.Show();
+			MainWindow mwd = new MainWindow
+			{
+				Title = "Suduko"
+			};
+			mwd.Show();
+			//// Create the startup window
+			//SudukoBoardView wnd = new SudukoBoardView
+			//{
+			//	// Do stuff here, e.g. to the window
+			//	Title = "Suduko"
+			//};
+			//// Show the window
+			//wnd.Show();
 		}
 	}
 }
